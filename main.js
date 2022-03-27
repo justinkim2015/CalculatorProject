@@ -1,8 +1,3 @@
-let displayNumber = 0;
-let calculator = document.querySelector('.top');
-let display = document.querySelector('.screen');
-display.textContent = displayNumber;
-
 const oneButton = document.querySelector('.one');
 const twoButton = document.querySelector('.two');
 const threeButton = document.querySelector('.three');
@@ -14,26 +9,87 @@ const eightButton = document.querySelector('.eight');
 const nineButton = document.querySelector('.nine');
 const zeroButton = document.querySelector('.zero');
 const clearButton = document.querySelector('.clear');
+const additionButton = document.querySelector('.plus');
+const minusButton = document.querySelector('.minus');
+const multiplyButton = document.querySelector('.multiply');
+const divideButton = document.querySelector('.divide');
+const equalsButton = document.querySelector('.equals');
+
+let displayNumber = 0;
+let firstNumber = 0;
+let operation = "";
+let calculator = document.querySelector('.top');
+let display = document.querySelector('.screen');
+display.textContent = displayNumber;
 
 //eventlisteners
-clearButton.addEventListener('click', function(){
+equalsButton.addEventListener('click', () => {
+    displayNumber = operate(parseInt(firstNumber, 10), parseInt(displayNumber, 10), operation);
+    resetScreen();
+    console.log(firstNumber);
+    console.log(displayNumber);
+});
+
+additionButton.addEventListener('click', () => {
+    firstNumber = displayNumber;
     displayNumber = 0;
-    console.log(displayNumber)
+    operation = '+';
+    resetScreen();
+    console.log(firstNumber);
+    console.log(displayNumber);
+});
+
+minusButton.addEventListener('click', () => {
+    firstNumber = displayNumber;
+    displayNumber = 0;
+    operation = '-';
+    resetScreen();
+    console.log(firstNumber);
+    console.log(displayNumber);
+});
+
+multiplyButton.addEventListener('click', () => {
+    firstNumber = displayNumber;
+    displayNumber = 0;
+    operation = '*';
+    resetScreen();
+    console.log(firstNumber);
+    console.log(displayNumber);
+});
+
+divideButton.addEventListener('click', () => {
+    firstNumber = displayNumber;
+    displayNumber = 0;
+    operation = '/';
+    resetScreen();
+    console.log(firstNumber);
+    console.log(displayNumber);
+});
+
+clearButton.addEventListener('click', () => {
+    displayNumber = 0;
+    firstNumber = 0;
+    operation = "";
     resetScreen ();
 });
 
-oneButton.addEventListener('click', function() {
-    if (displayNumber == 0) {
-        displayNumber = displayNumber + 1;
-        resetScreen ();
-    } else {
-        displayNumber = displayNumber + '1';
-        resetScreen ();
-    }    
-    console.log(displayNumber)
-}); 
+// *********************************IF ELSE */
+// oneButton.addEventListener('click', () => {
+//     if (displayNumber == 0) {
+//         displayNumber = displayNumber + 1;
+//     } else {
+//         displayNumber = displayNumber + '1';
+//     } 
+//     resetScreen();   
+// }); 
 
-twoButton.addEventListener('click', function() {
+oneButton.addEventListener('click', () => {
+    displayNumber = (displayNumber == 0) ? displayNumber + 1 : displayNumber + '1';
+    resetScreen();
+});
+//**************************TERNARY^^^^^^ */
+
+twoButton.addEventListener('click', () => {
     if (displayNumber == 0) {
         displayNumber = displayNumber + 2;
         resetScreen ()
@@ -41,10 +97,9 @@ twoButton.addEventListener('click', function() {
         displayNumber = displayNumber + '2';
         resetScreen ()
     }    
-    console.log(displayNumber)
 }); 
 
-threeButton.addEventListener('click', function() {
+threeButton.addEventListener('click', () => {
     if (displayNumber == 0) {
         displayNumber = displayNumber + 3;
         resetScreen ()
@@ -52,10 +107,9 @@ threeButton.addEventListener('click', function() {
         displayNumber = displayNumber + '3';
         resetScreen ()
     }    
-    console.log(displayNumber)
 }); 
 
-fourButton.addEventListener('click', function() {
+fourButton.addEventListener('click', () => {
     if (displayNumber == 0) {
         displayNumber = displayNumber + 4;
         resetScreen ()
@@ -63,10 +117,9 @@ fourButton.addEventListener('click', function() {
         displayNumber = displayNumber + '4';
         resetScreen ()
     }    
-    console.log(displayNumber)
 }); 
 
-fiveButton.addEventListener('click', function() {
+fiveButton.addEventListener('click', () => {
     if (displayNumber == 0) {
         displayNumber = displayNumber + 5;
         resetScreen ()
@@ -74,10 +127,9 @@ fiveButton.addEventListener('click', function() {
         displayNumber = displayNumber + '5';
         resetScreen ()
     }    
-    console.log(displayNumber)
 }); 
 
-sixButton.addEventListener('click', function() {
+sixButton.addEventListener('click', () => {
     if (displayNumber == 0) {
         displayNumber = displayNumber + 6;
         resetScreen ()
@@ -85,10 +137,9 @@ sixButton.addEventListener('click', function() {
         displayNumber = displayNumber + '6';
         resetScreen ()
     }    
-    console.log(displayNumber)
 }); 
 
-sevenButton.addEventListener('click', function() {
+sevenButton.addEventListener('click', () => {
     if (displayNumber == 0) {
         displayNumber = displayNumber + 7;
         resetScreen ()
@@ -96,18 +147,15 @@ sevenButton.addEventListener('click', function() {
         displayNumber = displayNumber + '7';
         resetScreen ()
     }    
-    console.log(displayNumber)
 }); 
 
-eightButton.addEventListener('click', function() {
+eightButton.addEventListener('click', () => {
     if (displayNumber == 0) {
         displayNumber = displayNumber + 8;
-        resetScreen ()
     } else {
         displayNumber = displayNumber + '8';
-        resetScreen ()
-    }    
-    console.log(displayNumber)
+    }
+    resetScreen();    
 }); 
 
 nineButton.addEventListener('click', function() {
@@ -168,6 +216,6 @@ function multi (x, y) {
 }
   
 function divide (x, y) {
-    return x / b;
+    return x / y;
 }
   
