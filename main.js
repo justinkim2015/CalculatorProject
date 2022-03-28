@@ -11,20 +11,15 @@ display.textContent = displayNumber;
 //eventlisteners
 allOperators.addEventListener('click', () => {
     if (event.target.textContent == '+') {
-        operateButton('+')
+        operateButton('+');
     } else if (event.target.textContent == '-') {
-        operateButton('-')
+        operateButton('-');
     } else if (event.target.textContent == '*') {
-        operateButton('*')
+        operateButton('*');
     } else if (event.target.textContent == '/') {
-        operateButton('/')
+        divideButton();
     } else if (event.target.textContent == '=') {
-        if (savedNumber !== 0) {  
-            displayNumber = operate(parseInt(savedNumber, 10), parseInt(displayNumber, 10), operation); 
-            savedNumber = 1; //displayed answer is multiplied by 1 if the user presses = again so it remains the same
-            operation = '*'
-            resetScreen();
-        }
+        equalsButton();
     } else {
         displayNumber = 0;
         savedNumber = 0;
@@ -73,7 +68,9 @@ function updateNumber (num) {
 };
 
 function operateButton(operator) {
-    if (displayNumber == 0 || savedNumber == 0) {
+    if ((displayNumber == 0 || savedNumber == 0) && operation == '/') {
+        noZero()
+    } else if (displayNumber == 0 || savedNumber == 0) {
         operation = `${operator}`;
         savedNumber = displayNumber;
         displayNumber = "";
@@ -86,9 +83,11 @@ function operateButton(operator) {
     }
 };
 
-function divideButton(operator) {
-    if (displayNumber == 0 || savedNumber == 0) {
-        operation = `${operator}`;
+function divideButton() {
+    if ((displayNumber == 0 || savedNumber == 0) && operation == '/') {
+        noZero()
+    } else if (displayNumber == 0 || savedNumber == 0) {
+        operation = `/`;
         savedNumber = displayNumber;
         displayNumber = "";
     } else {
@@ -96,9 +95,27 @@ function divideButton(operator) {
         resetScreen();
         savedNumber = displayNumber
         displayNumber = "";
-        operation = `${operator}`;
+        operation = `/`;
     }
 };
+
+function equalsButton() {
+    if ((displayNumber == 0) && operation == '/') {
+        displayNumber = 'plsstop';
+        resetScreen();
+    } else {  
+        displayNumber = operate(parseInt(savedNumber, 10), parseInt(displayNumber, 10), operation); 
+        savedNumber = 1; //displayed answer is multiplied by 1 if the user presses = again so it remains the same
+        operation = '*'
+        resetScreen();
+    } 
+};
+
+function noZero() {
+        operation = '/';
+        displayNumber = 'plsstop';
+        resetScreen();
+}
 
 //math functions
 function operate (a, b, operator) {

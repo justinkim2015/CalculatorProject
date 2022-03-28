@@ -1,7 +1,25 @@
 body {
+    flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 35px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+}
+
+button {
+    border: 1px black solid;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.title {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
 }
 
 .calculator {
@@ -9,7 +27,9 @@ body {
     flex-direction: column;
     height: 500px;
     width: 400px;
-    border: 1px solid black;
+    border: 3px solid black;
+    border-radius: 5px;
+    background-color: lightgreen;
 }
 
 .screen {
@@ -19,6 +39,7 @@ body {
     border: 1px solid black;
     height: 30px;
     align-items: center;
+    background: white;
 }
 
 .bottom {
@@ -32,14 +53,16 @@ body {
     height: 350px;
     width: 300px;
     margin: 20px;
+    margin-right: 10px;
 }
 
-.number {
+.number,
+.decimal {
     width: 33.333333333333%;
 }
 
 .zero {
-    width: 100%;
+    width: 66.66666666%;
 }
 
 .operators {
@@ -49,9 +72,20 @@ body {
     height: 350px;
     width: 100px;
     margin: 20px;
+    margin-left: 0;
 }
 
 .operate {
     height: 20%;
+}
+
+.footer {
+    background-color: lightgrey;
+    width: 100%;
+    margin-top: auto;
+    font-size: 13px;
+    padding: 8px;
+    margin-bottom: 0;
+    text-align: center;
 }
 
