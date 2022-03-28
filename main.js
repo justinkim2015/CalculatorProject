@@ -1,79 +1,59 @@
 const allNumbers = document.querySelector('.numbers');
 const allOperators = document.querySelector('.operators');
+const calculator = document.querySelector('.top');
+const display = document.querySelector('.screen');
 
 let displayNumber = 0;
-let firstNumber = 0;
-let secondNumber = 0; 
+let savedNumber = 0;
 let operation = "";
-let calculator = document.querySelector('.top');
-let display = document.querySelector('.screen');
 display.textContent = displayNumber;
 
 //eventlisteners
-//USE THE STORED OPERATION VALUE TO KNOW WHICH OPERATOR TO USE WHEN SWITCHING
 allOperators.addEventListener('click', () => {
     if (event.target.textContent == '+') {
-        operation = '+';
-        firstNumber = displayNumber;
-        displayNumber = "";
-        resetScreen();
+        operateButton('+')
     } else if (event.target.textContent == '-') {
-        operation = '-';
-        firstNumber = displayNumber;
-        displayNumber = "";
-        resetScreen();
+        operateButton('-')
     } else if (event.target.textContent == '*') {
-        operation = '*';
-        firstNumber = displayNumber;
-        displayNumber = "";
-        resetScreen();
+        operateButton('*')
     } else if (event.target.textContent == '/') {
-        operation = '/';
-        firstNumber = displayNumber;
-        displayNumber = "";
-        resetScreen();
+        operateButton('/')
     } else if (event.target.textContent == '=') {
-        displayNumber = operate(parseInt(firstNumber, 10), parseInt(displayNumber, 10), operation);
-        resetScreen();
+        if (savedNumber !== 0) {  
+            displayNumber = operate(parseInt(savedNumber, 10), parseInt(displayNumber, 10), operation); 
+            savedNumber = 1; //displayed answer is multiplied by 1 if the user presses = again so it remains the same
+            operation = '*'
+            resetScreen();
+        }
     } else {
         displayNumber = 0;
-        firstNumber = 0;
+        savedNumber = 0;
         operation = "";
-        resetScreen ();    
+        resetScreen();
     }
 })
 
 allNumbers.addEventListener('click', () => {
     if (event.target.textContent == '1') {
-        displayNumber = (displayNumber == 0) ? displayNumber + 1 : displayNumber + '1';
-        resetScreen();    
+        updateNumber(1);
     } else if (event.target.textContent == '2') {
-        displayNumber = (displayNumber == 0) ? displayNumber + 2 :displayNumber + '2';
-        resetScreen();
+        updateNumber(2);
     } else if (event.target.textContent == '3') {
-        displayNumber = (displayNumber == 0) ? displayNumber + 3 :displayNumber + '3';
-        resetScreen();
+        updateNumber(3);
     } else if (event.target.textContent == '4') {
-        displayNumber = (displayNumber == 0) ? displayNumber + 4 :displayNumber + '2';
-        resetScreen();
+        updateNumber(4);
     } else if (event.target.textContent == '5') {
-        displayNumber = (displayNumber == 0) ? displayNumber + 5 :displayNumber + '5';
-        resetScreen();
+        updateNumber(5);
     } else if (event.target.textContent == '6') {
-        displayNumber = (displayNumber == 0) ? displayNumber + 6 :displayNumber + '6';
-        resetScreen();
+        updateNumber(6);
     } else if (event.target.textContent == '7') {
-        displayNumber = (displayNumber == 0) ? displayNumber + 7 :displayNumber + '7';
-        resetScreen();
+        updateNumber(7);
     } else if (event.target.textContent == '8') {
-        displayNumber = (displayNumber == 0) ? displayNumber + 8 :displayNumber + '8';
-        resetScreen();
+        updateNumber(8);
     } else if (event.target.textContent == '9') {
-        displayNumber = (displayNumber == 0) ? displayNumber + 9 :displayNumber + '9';
-        resetScreen();
+        updateNumber(9);
     } else {
-        displayNumber = (displayNumber == 0) ? displayNumber + 0 : displayNumber + '0'; 
-        resetScreen();
+        updateNumber(0);
     }
 })
 
@@ -85,9 +65,42 @@ function resetScreen () {
     screen.classList.add('screen');
     screen.textContent = displayNumber;
     calculator.appendChild(screen);
-}
+};
 
-//Operator functions
+function updateNumber (num) {
+    displayNumber = (displayNumber == 0) ? displayNumber + num : displayNumber + `${num}`;
+    resetScreen();        
+};
+
+function operateButton(operator) {
+    if (displayNumber == 0 || savedNumber == 0) {
+        operation = `${operator}`;
+        savedNumber = displayNumber;
+        displayNumber = "";
+    } else {
+        displayNumber = operate(parseInt(savedNumber, 10), parseInt(displayNumber, 10), operation)
+        resetScreen();
+        savedNumber = displayNumber
+        displayNumber = "";
+        operation = `${operator}`;
+    }
+};
+
+function divideButton(operator) {
+    if (displayNumber == 0 || savedNumber == 0) {
+        operation = `${operator}`;
+        savedNumber = displayNumber;
+        displayNumber = "";
+    } else {
+        displayNumber = operate(parseInt(savedNumber, 10), parseInt(displayNumber, 10), operation)
+        resetScreen();
+        savedNumber = displayNumber
+        displayNumber = "";
+        operation = `${operator}`;
+    }
+};
+
+//math functions
 function operate (a, b, operator) {
     if (operator == '+') {
         return addition(a, b);
@@ -107,7 +120,7 @@ function addition (x, y) {
 function subtraction (x, y) {
     return x - y;
 };
-  
+
 function multi (x, y) {
     return x * y;
 }
@@ -116,8 +129,3 @@ function divide (x, y) {
     return x / y;
 }
   
-// Each button contains some value, right? It can be a digit or operator key. Just check for it.
-// Or you can add one handler to number keys and another handler to operator keys.
-
-// also I feel like there's probably a more elegant way of adding EventListeners rather than just making an individual one for each button
-// Read about event delegation. 
