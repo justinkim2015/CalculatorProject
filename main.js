@@ -3,13 +3,14 @@ const allOperators = document.querySelector('.operators');
 const calculator = document.querySelector('.top');
 const display = document.querySelector('.screen');
 const deciButton = document.querySelector('.decimal');
+const one = document.querySelector('.one');
 
 let displayNumber = 0;
 let savedNumber = 0;
 let operation = "";
 display.textContent = displayNumber;
 
-//eventlisteners
+//clicking eventlisteners
 allOperators.addEventListener('click', () => {
     if (event.target.textContent == '+') {
         operateButton('+');
@@ -29,7 +30,7 @@ allOperators.addEventListener('click', () => {
         operation = "";
         resetScreen();
     }
-})
+});
 
 allNumbers.addEventListener('click', () => {
     if (event.target.textContent == '1') {
@@ -56,6 +57,48 @@ allNumbers.addEventListener('click', () => {
         updateNumber(0);
     }
 })
+
+//typing eventlisteners
+document.addEventListener('keydown', (e) => {
+    if(e.keyCode === 49 || e.keyCode === 97){
+        one.style.backgroundColor = "red";
+        updateNumber(1);
+    } else if (e.keyCode === 50 || e.keyCode === 98){
+        updateNumber(2);
+    } else if (e.keyCode === 51 || e.keyCode === 99){
+        updateNumber(3);
+    } else if (e.keyCode === 52 || e.keyCode === 100){
+        updateNumber(4);
+    } else if (e.keyCode === 53 || e.keyCode === 101){
+        updateNumber(5);
+    } else if (e.keyCode === 54 || e.keyCode === 102){
+        updateNumber(6);
+    } else if (e.keyCode === 55 || e.keyCode === 103){
+        updateNumber(7);
+    } else if (e.keyCode === 56 || e.keyCode === 104){
+        updateNumber(8);
+    } else if (e.keyCode === 57 || e.keyCode === 105){
+        updateNumber(9);
+    } else if (e.keyCode === 48 || e.keyCode === 96){
+        updateNumber(0);
+    } else if (e.keyCode === 190 || e.keyCode === 110){
+        decimalButton();
+    } else if (e.keyCode === 8 || e.keyCode === 46){
+        delButton();
+    } else if (e.keyCode === 107){
+        operateButton('+');
+    } else if (e.keyCode === 109){
+        operateButton('-');
+    } else if (e.keyCode === 106){
+        operateButton('*');
+    } else if (e.keyCode === 111){
+        operateButton('/');
+    } else if (e.keyCode === 13){
+        equalsButton();
+    } else;
+});    
+
+
 
 //screen functions
 function resetScreen () {
