@@ -12,7 +12,7 @@ body {
 button {
     border: 1px black solid;
     border-radius: 10px;
-    font-size: 20px;
+    color: black;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
@@ -29,17 +29,20 @@ button {
     width: 400px;
     border: 3px solid black;
     border-radius: 5px;
-    background-color: lightgreen;
+    background-color: rgb(31, 31, 255);
 }
 
 .screen {
     display: flex;
     padding: 20px;
-    margin: 10px 20px;
+    margin: 20px;
+    margin-bottom: 10px;
     border: 1px solid black;
     height: 30px;
     align-items: center;
     background: white;
+    flex-direction: row-reverse;
+    font-weight: 600;
 }
 
 .bottom {
@@ -54,15 +57,16 @@ button {
     width: 300px;
     margin: 20px;
     margin-right: 10px;
+    background-color: rgb(31, 31, 255);
 }
 
 .number,
 .decimal {
-    width: 33.333333333333%;
+    width: 33.33333%;
 }
 
 .zero {
-    width: 66.66666666%;
+    width: 66.66666%;
 }
 
 .operators {
@@ -89,3 +93,14 @@ button {
     text-align: center;
 }
 
+.operate {
+    background-color: red;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.number {
+    background-color: white;
+    font-size: 15px;
+    font-weight: 600;
+}

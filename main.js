@@ -2,6 +2,7 @@ const allNumbers = document.querySelector('.numbers');
 const allOperators = document.querySelector('.operators');
 const calculator = document.querySelector('.top');
 const display = document.querySelector('.screen');
+const deciButton = document.querySelector('.decimal');
 
 let displayNumber = 0;
 let savedNumber = 0;
@@ -20,6 +21,8 @@ allOperators.addEventListener('click', () => {
         divideButton();
     } else if (event.target.textContent == '=') {
         equalsButton();
+    } else if (event.target.textContent == 'Del') {
+        delButton();
     } else {
         displayNumber = 0;
         savedNumber = 0;
@@ -47,6 +50,8 @@ allNumbers.addEventListener('click', () => {
         updateNumber(8);
     } else if (event.target.textContent == '9') {
         updateNumber(9);
+    } else if (event.target.textContent == '.') {
+        decimalButton();
     } else {
         updateNumber(0);
     }
@@ -68,6 +73,7 @@ function updateNumber (num) {
 };
 
 function operateButton(operator) {
+    deciButton.disabled = false;
     if ((displayNumber == 0 || savedNumber == 0) && operation == '/') {
         noZero()
     } else if (displayNumber == 0 || savedNumber == 0) {
@@ -75,7 +81,7 @@ function operateButton(operator) {
         savedNumber = displayNumber;
         displayNumber = "";
     } else {
-        displayNumber = operate(parseInt(savedNumber, 10), parseInt(displayNumber, 10), operation)
+        displayNumber = operate(parseFloat(savedNumber, 10), parseFloat(displayNumber, 10), operation)
         resetScreen();
         savedNumber = displayNumber
         displayNumber = "";
@@ -91,7 +97,7 @@ function divideButton() {
         savedNumber = displayNumber;
         displayNumber = "";
     } else {
-        displayNumber = operate(parseInt(savedNumber, 10), parseInt(displayNumber, 10), operation)
+        displayNumber = operate(parseFloat(savedNumber, 10), parseFloat(displayNumber, 10), operation)
         resetScreen();
         savedNumber = displayNumber
         displayNumber = "";
@@ -104,7 +110,7 @@ function equalsButton() {
         displayNumber = 'plsstop';
         resetScreen();
     } else {  
-        displayNumber = operate(parseInt(savedNumber, 10), parseInt(displayNumber, 10), operation); 
+        displayNumber = operate(parseFloat(savedNumber, 10), parseFloat(displayNumber, 10), operation); 
         savedNumber = 1; //displayed answer is multiplied by 1 if the user presses = again so it remains the same
         operation = '*'
         resetScreen();
@@ -117,6 +123,20 @@ function noZero() {
         resetScreen();
 }
 
+function delButton() {
+    displayNumber = displayNumber.slice(0, -1);
+    resetScreen()
+}
+
+function decimalButton () {
+    let decimalCheck = displayNumber.indexOf('.')
+    if (decimalCheck !== -1) {
+        deciButton.disabled = true;
+    } else {
+        displayNumber = displayNumber + '.';
+        resetScreen()
+    }
+}
 //math functions
 function operate (a, b, operator) {
     if (operator == '+') {
